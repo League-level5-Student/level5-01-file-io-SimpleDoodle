@@ -44,6 +44,8 @@ public class FileEncryptor {
 			else if(charArray[i] - key >= 65) {
 				charArray[i] = charArray[i] -= key;
 			}
+			else if(charArray[i] == 32) {
+			}
 			else {
 				int tempInt = (91 - (key - (charArray[i] - 65)));
 				charArray[i] = (char) (tempInt);

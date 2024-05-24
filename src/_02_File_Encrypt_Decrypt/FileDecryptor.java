@@ -35,12 +35,18 @@ public class FileDecryptor {
 			FileReader fr = new FileReader("src/_02_File_Encrypt_Decrypt/encrypted.txt");
 			int encryptChar = fr.read();
 			while (encryptChar != -1) {
-				if (encryptChar + key <= 122 && encryptChar + key > 90) {
+				if (encryptChar + key <= 122 && encryptChar + key > 97) {
 					encryptChar = encryptChar += key;
+					//System.out.println("1");
 				} else if (encryptChar + key <= 90) {
 					encryptChar = encryptChar += key;
-				} else {
+					//System.out.println("2");
+					
+				} else if(encryptChar == 32) {
+				}
+				else {
 					int tempInt = ((encryptChar - 26) + key);
+					//System.out.println("3");
 				}
 				decryptedMsg.append((char) encryptChar);
 				encryptChar = fr.read();
