@@ -37,16 +37,17 @@ public class FileDecryptor {
 			while (encryptChar != -1) {
 				if (encryptChar + key <= 122 && encryptChar + key > 97) {
 					encryptChar = encryptChar += key;
-					//System.out.println("1");
+					// System.out.println("1");
+				} else if (encryptChar == 32) {
+					encryptChar = encryptChar;
 				} else if (encryptChar + key <= 90) {
 					encryptChar = encryptChar += key;
-					//System.out.println("2");
-					
-				} else if(encryptChar == 32) {
-				}
-				else {
+					// System.out.println("2");
+
+				} else if (encryptChar == 32) {
+				} else {
 					int tempInt = ((encryptChar - 26) + key);
-					//System.out.println("3");
+					// System.out.println("3");
 				}
 				decryptedMsg.append((char) encryptChar);
 				encryptChar = fr.read();

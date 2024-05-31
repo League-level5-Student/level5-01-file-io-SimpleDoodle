@@ -28,7 +28,7 @@ public class FileEncryptor {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Type a message to be encoded in a file.");
-		String s = scan.next();
+		String s = scan.nextLine();
 		System.out.println("Type a number to shift the letters.");
 		int key = scan.nextInt();
 		char[] charArray = s.toCharArray();
@@ -37,14 +37,15 @@ public class FileEncryptor {
 			if (charArray[i] - key >= 97) {
 				charArray[i] = charArray[i] -= key;
 			}
+			else if (charArray[i] == 32) {
+				charArray[i] = charArray[i];
+			}
 			else if(charArray[i] >= 97){
 				int tempInt = (123 - (key - (charArray[i] - 97)));
 				charArray[i] = (char) (tempInt);
 			}
 			else if(charArray[i] - key >= 65) {
 				charArray[i] = charArray[i] -= key;
-			}
-			else if(charArray[i] == 32) {
 			}
 			else {
 				int tempInt = (91 - (key - (charArray[i] - 65)));
