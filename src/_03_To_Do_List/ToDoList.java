@@ -38,12 +38,13 @@ public class ToDoList {
 			 */
 	JFrame frame = new JFrame();
 	static JPanel panel = new JPanel();
-	static JButton addTask = new JButton();
-	static JButton viewTask = new JButton();
-	static JButton removeTask = new JButton();
-	static JButton saveList = new JButton();
-	static JButton loadList = new JButton();
+	static JButton addTask = new JButton("Add Task");
+	static JButton viewTask = new JButton("View Task");
+	static JButton removeTask = new JButton("Remove Task");
+	static JButton saveList = new JButton("Save List");
+	static JButton loadList = new JButton("Load List");
 	static ArrayList<String> arrString = new ArrayList<>();
+	static String latestSave;
 
 	public static void main(String[] args) {
 		frame.add(panel);
@@ -55,40 +56,25 @@ public class ToDoList {
 		frame.show();
 		frame.pack();
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		addTask.setText("addTask");
 		ActionListener aL = (ActionEvent e) -> {
 			JButton source = (JButton) e.getSource();
 			// System.out.println(source.getActionCommand());
 			if (source == addTask) {
 				// System.out.println("click");
 				arrString.add(JOptionPane.showInputDialog("Add a task"));
-				try {
-					FileWriter fw = new FileWriter("src/_03_To_Do_List/todo.txt");
-					for (int i = 0; i < arrString.size(); i++) {
-						fw.write("\n" + arrString.get(i));
-					}
-					fw.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
 			} else if (source == viewTask) {
-				try {
-					BufferedReader fr = new BufferedReader(new FileReader("src/_03_To_Do_List/todo.txt"));
-
-					String line = fr.readLine();
-					while (line != null) {
-						System.out.println(line);
-						line = fr.readLine();
-					}
-					fr.close();
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				/*
+				 * try { BufferedReader fr = new BufferedReader(new
+				 * FileReader("src/_03_To_Do_List/todo.txt"));
+				 * 
+				 * String line = fr.readLine(); while (line != null) { System.out.println(line);
+				 * line = fr.readLine(); } fr.close(); } catch (FileNotFoundException e1) { //
+				 * TODO Auto-generated catch block e1.printStackTrace(); } catch (IOException
+				 * e1) { // TODO Auto-generated catch block e1.printStackTrace(); }
+				 */
+				for (int i = 0; i < arrString.size(); i++) {
+					System.out.println(arrString.get(i));
 				}
 			} else if (source == removeTask) {
 				String s = JOptionPane.showInputDialog("Remove a task");
@@ -96,24 +82,48 @@ public class ToDoList {
 					if (arrString.get(i) == s) {
 						arrString.remove(i);
 					}
-					try {
-						FileWriter fw = new FileWriter("src/_03_To_Do_List/todo.txt");
-						fw.write(arrString.toString());
-						fw.close();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					/*
+					 * try { FileWriter fw = new FileWriter("src/_03_To_Do_List/todo.txt");
+					 * fw.write(arrString.toString()); fw.close(); } catch (IOException e1) { //
+					 * TODO Auto-generated catch block e1.printStackTrace(); }
+					 */
 				}
 
 			} else if (source == saveList) {
-
+				latestSave = JOptionPane.showInputDialog("Enter the name for the save file (repeated names will override old save files)");
+				try {
+					FileWriter fw = new FileWriter("src/_03_To_Do_List/" + latestSave + ".txt");
+					for (int i = 0; i < arrString.size(); i++) {
+						fw.write(arrString.get(i) + "/n");
+					}
+					fw.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			} else if (source == loadList) {
-
+				while (arrString.size() > 0) {
+					arrString.remove(0);
+				}
+				try {
+					BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/" + latestSave + ".txt"));
+					String line = br.readLine();
+					while (line != null) {
+						arrString.add(br.readLine());
+					}
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		};
 		addTask.addActionListener(aL);
 		viewTask.addActionListener(aL);
 		removeTask.addActionListener(aL);
+		saveList.addActionListener(aL);
+		loadList.addActionListener(aL);
 	}
 }
