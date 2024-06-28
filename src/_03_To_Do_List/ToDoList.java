@@ -44,7 +44,7 @@ public class ToDoList {
 	static JButton saveList = new JButton("Save List");
 	static JButton loadList = new JButton("Load List");
 	static ArrayList<String> arrString = new ArrayList<>();
-	static String latestSave;
+	static String newSave;
 
 	public static void main(String[] args) {
 		frame.add(panel);
@@ -59,6 +59,23 @@ public class ToDoList {
 		ActionListener aL = (ActionEvent e) -> {
 			JButton source = (JButton) e.getSource();
 			// System.out.println(source.getActionCommand());
+			BufferedReader autoSave;
+			try {
+				autoSave = new BufferedReader(new FileReader("src/_03_To_Do_List/auto.txt"));
+				String autoLine = autoSave.readLine();
+				while (autoLine != null) {
+					arrString.add(autoLine);
+					autoLine = autoSave.readLine();
+				}
+				autoSave.close();
+			} catch (FileNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 			if (source == addTask) {
 				// System.out.println("click");
 				arrString.add(JOptionPane.showInputDialog("Add a task"));
@@ -78,25 +95,29 @@ public class ToDoList {
 				}
 			} else if (source == removeTask) {
 				String s = JOptionPane.showInputDialog("Remove a task");
-				for (int i = 0; i < arrString.size(); i++) {
-					if (arrString.get(i) == s) {
-						arrString.remove(i);
-					}
-					/*
-					 * try { FileWriter fw = new FileWriter("src/_03_To_Do_List/todo.txt");
-					 * fw.write(arrString.toString()); fw.close(); } catch (IOException e1) { //
-					 * TODO Auto-generated catch block e1.printStackTrace(); }
-					 */
-				}
+				// for (int i = 0; i < arrString.size(); i++) {
+				// if (arrString.get(i) == s) {
+				arrString.remove(s);
+				// }
+				/*
+				 * try { FileWriter fw = new FileWriter("src/_03_To_Do_List/todo.txt");
+				 * fw.write(arrString.toString()); fw.close(); } catch (IOException e1) { //
+				 * TODO Auto-generated catch block e1.printStackTrace(); }
+				 */
+				// }
 
 			} else if (source == saveList) {
-				latestSave = JOptionPane.showInputDialog("Enter the name for the save file (repeated names will override old save files)");
+				newSave = JOptionPane.showInputDialog(
+						"Enter the name for the save file (repeated names will override old save files)");
 				try {
-					FileWriter fw = new FileWriter("src/_03_To_Do_List/" + latestSave + ".txt");
+					FileWriter fw = new FileWriter("src/_03_To_Do_List/" + newSave + ".txt");
+					FileWriter auto = new FileWriter("src/_03_To_Do_List/auto.txt");
 					for (int i = 0; i < arrString.size(); i++) {
-						fw.write(arrString.get(i) + "/n");
+						fw.write(arrString.get(i) + "\n");
+						auto.write(arrString.get(i) + "\n");
 					}
 					fw.close();
+					auto.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -105,12 +126,15 @@ public class ToDoList {
 				while (arrString.size() > 0) {
 					arrString.remove(0);
 				}
+				String loadSave = JOptionPane.showInputDialog("Enter the save you would like to recall");
 				try {
-					BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/" + latestSave + ".txt"));
+					BufferedReader br = new BufferedReader(new FileReader("src/_03_To_Do_List/" + loadSave + ".txt"));
 					String line = br.readLine();
 					while (line != null) {
-						arrString.add(br.readLine());
+						System.out.println(line);
+						line = br.readLine();
 					}
+					br.close();
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

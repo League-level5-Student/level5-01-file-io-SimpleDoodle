@@ -19,6 +19,9 @@ public class DirectoryIterator {
 			if(files != null) {
 				for(File f : files) {
 				  System.out.println(f.getAbsolutePath());
+				  if (f.isDirectory()) {
+					f.listFiles();
+				} 
 				}
 			}
 		}
