@@ -21,10 +21,11 @@ public class DirectoryIterator {
 			if(files != null) {
 				for(File f : files) {
 				  System.out.println(f.getAbsolutePath());
-				  if (f.isDirectory()) {
-					f.listFiles();
-					System.out.println(Arrays.toString(f.listFiles()));
-				} 
+				//  if (f.isDirectory()) {
+				//	f.listFiles();
+				//	System.out.println(Arrays.toString(f.listFiles()));
+					
+			//	} 
 				}
 			}
 		}
@@ -35,5 +36,13 @@ public class DirectoryIterator {
 		 * Be aware of possible directories inside of directories.
 		 * (e.g //Copyright © 2019 FirstName LastName)
 		 */
+	}
+	//recursion function inside function
+	
+	void fileSearch(File files){
+		for(File f : files.listFiles()) {
+			  System.out.println(f.getAbsolutePath());
+
+			}
 	}
 }
