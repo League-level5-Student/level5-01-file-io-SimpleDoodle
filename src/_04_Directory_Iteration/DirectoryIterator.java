@@ -1,6 +1,8 @@
 package _04_Directory_Iteration;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 import javax.swing.JFileChooser;
 
@@ -21,6 +23,7 @@ public class DirectoryIterator {
 				  System.out.println(f.getAbsolutePath());
 				  if (f.isDirectory()) {
 					f.listFiles();
+					System.out.println(Arrays.toString(f.listFiles()));
 				} 
 				}
 			}
