@@ -62,3 +62,4 @@ public class FileEncryptor {
 		}
 	}
 }
+//Copyright © 2019 Michael Xu

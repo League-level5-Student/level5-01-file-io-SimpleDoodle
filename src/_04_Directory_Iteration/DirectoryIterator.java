@@ -43,20 +43,20 @@ public class DirectoryIterator {
 				fileSearch(f);
 			} else {
 				String fileName = f.getAbsolutePath();
-				//System.out.println(fileName);
+				// System.out.println(fileName);
 				if (fileName.contains(".java")) {
 					try {
-					FileWriter fw = new FileWriter(fileName, true);
-					// fw.write("//Copyright © 2019 Michael Xu");
-					fw.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+						FileWriter fw = new FileWriter(fileName, true);
+						fw.write("//Copyright © 2024 Michael Xu");
+						fw.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-				}
-				
 
 			}
 		}
 	}
 }
+//Copyright © 2019 Michael Xu

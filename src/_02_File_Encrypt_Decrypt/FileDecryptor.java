@@ -63,3 +63,4 @@ public class FileDecryptor {
 		System.out.println(decryptedMsg);
 	}
 }
+//Copyright © 2019 Michael Xu
