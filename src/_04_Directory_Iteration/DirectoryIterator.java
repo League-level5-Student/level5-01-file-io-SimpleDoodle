@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 
@@ -21,7 +22,9 @@ public class DirectoryIterator {
 			File directory = jfc.getSelectedFile();
 			File[] files = directory.listFiles();
 			if (files != null) {
+				// for (File file : files) {
 				fileSearch(directory);
+				// }
 			}
 		}
 
@@ -34,16 +37,15 @@ public class DirectoryIterator {
 		 */
 	}
 
-	static // recursion function inside function
-
-	void fileSearch(File files) {
+	static void fileSearch(File files) {
 		for (File f : files.listFiles()) {
-			if (files.isDirectory()) {
+			if (f.isDirectory()) {
 				fileSearch(f);
 			} else {
-				String fileName = files.getAbsolutePath();
-				System.out.println(fileName);
-				try {
+				String fileName = f.getAbsolutePath();
+				//System.out.println(fileName);
+				if (fileName.contains(".java")) {
+					try {
 					FileWriter fw = new FileWriter(fileName, true);
 					// fw.write("//Copyright © 2019 Michael Xu");
 					fw.close();
@@ -51,6 +53,8 @@ public class DirectoryIterator {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				}
+				
 
 			}
 		}
